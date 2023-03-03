@@ -1,9 +1,8 @@
+import { DbModel, DbOption, IDbRepository, IUnitOfWork } from 'lite-ts-db';
+
 import { DbQuery } from './db-query';
-import { DbModel } from './db-model';
-import { DbOption, LocalStorage } from './db-factory-base';
-import { IUnitOfWork } from './i-unit-of-work';
 import { IUnitOfWorkRepository } from './i-unit-of-work-repository';
-import { IDbRepository } from './i-db-repository';
+import { LocalStorage } from './db-factory';
 
 export function modelDbOption(model: any): DbOption {
     return dbRepo => {

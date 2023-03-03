@@ -1,6 +1,6 @@
-# 文件操作
+# 本地缓存操作库
 
-![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
+# ![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
 
 ## 安装
 ```
@@ -11,6 +11,7 @@ npm install lite-ts-local-storage
 
 ```typescript
 import { DbFactory, modelDbOption, uowDbOption} from 'lite-ts-local-storage';
+
 class User{
     public static ctor = 'User';
 
@@ -18,10 +19,10 @@ class User{
     public name:string;
     public age:number;
 }
-const dbFactory = new DbFactory(localStorage);
+const dbFactory = new LocalStorageDbFactory(localStorage);
 const uow = dbFactory.uow();
-const db = dbFactory.db(
-    modelDbOption(model.global_.User),
+const db = dbFactory.db<User>(
+    modelDbOption(User),
     uowDbOption(uow)
 );
 
@@ -35,10 +36,10 @@ await db.add({
 // 删除实体
 await db.remove({
     id:'1',
-    age:2,
+    age:1,
     name:'张三1'
 });
-
+// 更新实体
 await db.remove({
     id:'1',
     age:2,

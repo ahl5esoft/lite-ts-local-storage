@@ -1,4 +1,4 @@
-import { IUnitOfWork } from './i-unit-of-work';
+import { IUnitOfWork } from 'lite-ts-db';
 
 export interface IUnitOfWorkRepository extends IUnitOfWork {
     registerAdd(model: string, entry: any): void;
