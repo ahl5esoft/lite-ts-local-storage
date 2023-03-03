@@ -1,4 +1,5 @@
 import { DbModel, IDbQuery } from 'lite-ts-db';
+
 import { LocalStorage } from './db-factory';
 
 export type DbQueryOption<T> = Partial<{
