@@ -19,7 +19,7 @@ class User{
     public name:string;
     public age:number;
 }
-const dbFactory = new DbFactory(localStorage);
+const dbFactory = new LocalStorageDbFactory(localStorage);
 const uow = dbFactory.uow();
 const db = dbFactory.db<User>(
     modelDbOption(User),
