@@ -1,8 +1,12 @@
-import { LocalStorage } from './db-factory-base';
-import { DbModel } from './db-model';
+import { DbModel } from 'lite-ts-db';
+import { LocalStorage } from './db-factory';
 import { IUnitOfWorkRepository } from './i-unit-of-work-repository';
 
 export class UnitOfWork implements IUnitOfWorkRepository {
+    /**
+     * 提交后执行的函数
+     */
+    private m_AfterActions: (() => Promise<void>)[] = [];
 
     private m_Operation: {
         [model: string]: ((idOfEntry: { [id: string]: DbModel }) => void)[];
@@ -31,10 +35,18 @@ export class UnitOfWork implements IUnitOfWorkRepository {
                 ),
             );
         });
+
+        for (const r of this.m_AfterActions)
+            await r();
+        this.m_AfterActions = [];
     }
 
     public registerAdd(model: string, entry: any) {
         this.registerSave(model, entry);
+    }
+
+    public registerAfter(action: () => Promise<void>) {
+        this.m_AfterActions.push(action);
     }
 
     public registerRemove(model: string, entry: any) {
@@ -50,6 +62,4 @@ export class UnitOfWork implements IUnitOfWorkRepository {
             idOfEntry[entry.id] = entry;
         });
     }
-
-
 }

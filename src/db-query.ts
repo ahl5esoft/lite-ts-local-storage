@@ -1,7 +1,13 @@
-import { LocalStorage } from './db-factory-base';
-import { DbModel } from './db-model';
-import { DbQueryOption, IDbQuery } from './i-db-query';
+import { DbModel, IDbQuery } from 'lite-ts-db';
+import { LocalStorage } from './db-factory';
 
+export type DbQueryOption<T> = Partial<{
+    skip: number;
+    take: number;
+    where: T;
+    order: string[];
+    orderByDesc: string[];
+}>;
 
 export class DbQuery<T extends DbModel> implements IDbQuery<T> {
     public constructor(
