@@ -1,2 +1,2 @@
 export * from './db-factory';
-export * from './db-repository'
+export { modelDbOption, uowDbOption } from './db-repository'
