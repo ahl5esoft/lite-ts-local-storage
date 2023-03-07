@@ -5,24 +5,20 @@ interface IDbQueryOption<T> {
     order: string[];
     orderByDesc: string[];
 }
-
 interface IDbQuery<T> {
     count(where?: any): Promise<number>;
     toArray(v?: Partial<IDbQueryOption<any>>): Promise<T[]>;
 }
-
 interface IDbRepository<T> {
     add(entry: T): Promise<void>;
     remove(entry: T): Promise<void>;
     save(entry: T): Promise<void>;
     query(): IDbQuery<T>;
 }
-
 interface IUnitOfWork {
     commit(): Promise<void>;
     registerAfter(action: () => Promise<void>, key?: string): void;
 }
-
 declare class DbModel {
     readonly id: string;
 }
@@ -31,10 +27,6 @@ declare abstract class DbFactoryBase {
     abstract db<T extends DbModel>(...opts: DbOption[]): IDbRepository<T>;
     abstract uow(): IUnitOfWork;
 }
-
-
-
-
 type DbQueryOption<T> = Partial<{
     skip: number;
     take: number;
@@ -49,14 +41,11 @@ declare class DbQuery<T extends DbModel> implements IDbQuery<T> {
     count(where?: (entry: T) => boolean): Promise<number>;
     toArray(opt?: DbQueryOption<(entry: T) => boolean>): Promise<T[]>;
 }
-
-
 interface IUnitOfWorkRepository extends IUnitOfWork {
     registerAdd(model: string, entry: any): void;
     registerRemove(model: string, entry: any): void;
     registerSave(model: string, entry: any): void;
 }
-
 declare function modelDbOption(model: any): DbOption;
 declare function uowDbOption(uow: IUnitOfWork): DbOption;
 declare class DbRepository<T extends DbModel> implements IDbRepository<T> {
@@ -72,7 +61,6 @@ declare class DbRepository<T extends DbModel> implements IDbRepository<T> {
     remove(entry: T): Promise<void>;
     save(entry: T): Promise<void>;
 }
-
 declare class UnitOfWork implements IUnitOfWorkRepository {
     private m_LocalStorage;
     private m_AfterActions;
@@ -84,7 +72,6 @@ declare class UnitOfWork implements IUnitOfWorkRepository {
     registerRemove(model: string, entry: any): void;
     registerSave(model: string, entry: any): void;
 }
-
 type LocalStorage = {
     getItem: (key: string) => string;
     setItem: (key: string, value: string) => void;
@@ -95,4 +82,3 @@ declare class LocalStorageDbFactory extends DbFactoryBase {
     db<T extends DbModel>(...opts: DbOption[]): DbRepository<T>;
     uow(): UnitOfWork;
 }
-
