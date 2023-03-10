@@ -1,6 +1,6 @@
-import { DbFactoryBase, DbModel, DbOption } from 'lite-ts-db';
+import { DbFactoryBase, DbModel, DbOption, DbRepository } from 'lite-ts-db';
 
-import { DbRepository } from './db-repository';
+import { DbQuery } from './db-query';
 import { UnitOfWork } from './unit-of-work';
 
 export type LocalStorage = {
@@ -18,8 +18,10 @@ export class LocalStorageDbFactory extends DbFactoryBase {
     public db<T extends DbModel>(...opts: DbOption[]) {
         const dbReop = new DbRepository<T>(
             this.uow(),
-            this.m_LocalStorage
         );
+        dbReop.createQueryFunc = () => {
+            return new DbQuery(dbReop.model, this.m_LocalStorage);
+        };
         opts.forEach(r => {
             r(dbReop);
         });
