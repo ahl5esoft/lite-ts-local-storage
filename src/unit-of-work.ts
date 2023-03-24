@@ -1,7 +1,5 @@
 import { DbModel, IUnitOfWorkRepository } from 'lite-ts-db';
 
-import { LocalStorage } from './db-factory';
-
 export class UnitOfWork implements IUnitOfWorkRepository {
     /**
      * 提交后执行的函数
@@ -13,7 +11,7 @@ export class UnitOfWork implements IUnitOfWorkRepository {
     } = {};
 
     public constructor(
-        private m_LocalStorage: LocalStorage
+        private m_LocalStorage: Storage
     ) { }
 
     public async commit() {

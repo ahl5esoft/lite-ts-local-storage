@@ -1,7 +1,5 @@
 import { DbModel, IDbQuery } from 'lite-ts-db';
 
-import { LocalStorage } from './db-factory';
-
 export type DbQueryOption<T> = Partial<{
     skip: number;
     take: number;
@@ -12,8 +10,8 @@ export type DbQueryOption<T> = Partial<{
 
 export class DbQuery<T extends DbModel> implements IDbQuery<T> {
     public constructor(
+        private m_LocalStorage: Storage,
         private m_Model: string,
-        private m_LocalStorage: LocalStorage
     ) { }
 
     public async count(where?: (entry: T) => boolean) {

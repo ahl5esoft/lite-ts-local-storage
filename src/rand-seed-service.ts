@@ -1,6 +1,10 @@
-import { DbFactoryBase, DbModel, IRandSeedService, IUnitOfWork, modelDbOption, uowDbOption } from 'lite-ts-db';
+import { DbFactoryBase, DbModel, IRandSeedService, IUnitOfWork, uowDbOption } from 'lite-ts-db';
+
+import { modelDbOption } from './model-db-option';
 
 class RandSeed extends DbModel {
+    public static ctor = 'RandSeed';
+
     public seed: { [scene: string]: string };
 }
 
@@ -23,7 +27,7 @@ export class LocalStorageRandSeedService implements IRandSeedService {
     public constructor(
         private m_DbFactory: DbFactoryBase,
         private m_Scene: string,
-        private m_Range: [number, number],
+        private m_Range = [256, 512],
     ) { }
 
     public async get(uow: IUnitOfWork, len: number, offset?: number) {
