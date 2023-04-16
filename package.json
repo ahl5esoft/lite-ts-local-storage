@@ -4,7 +4,9 @@
     "url": "https://github.com/ahl5esoft/lite-ts-local-storage/issues"
   },
   "dependencies": {
-    "lite-ts-db": "^1.8.1"
+    "lite-ts-config": "^2.1.1",
+    "lite-ts-db": "^1.8.1",
+    "lite-ts-ioc": "^1.2.1"
   },
   "description": "本地缓存",
   "devDependencies": {
@@ -32,11 +34,9 @@
   },
   "scripts": {
     "build": "tsc -p build.tsconfig.json",
-    "doc": "typedoc src/index.ts",
     "login": "npm config delete registry && npm config set https-proxy http://127.0.0.1:4780 && npm login",
     "release": "npm run build && npm publish && npm config delete https-proxy && npm config set registry=https://registry.npm.taobao.org",
-    "test": "mocha -t 30s -r ./node_modules/ts-node/register/index.js --exit",
-    "jspack": "webpack build && ts-node sh/jspack"
+    "test": "mocha -t 30s -r ./node_modules/ts-node/register/index.js --exit"
   },
   "version": "1.5.1"
 }
